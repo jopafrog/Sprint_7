@@ -47,7 +47,6 @@ class ApiCourier:
             "login": login,
             "password": password
         }
-
         response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier/login', data=payload)
         return response
 
@@ -57,12 +56,24 @@ class ApiCourier:
         return response
 
     @staticmethod
-    def create_courier(login, password, first_name):
+    def registration_courier(login, password, first_name):
         payload = {
             "login": login,
             "password": password,
             "firstName": first_name
         }
-
         response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
         return response
+
+    @staticmethod
+    def get_courier_id(login, password):
+        payload = {
+            "login": login,
+            "password": password
+        }
+        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier/login', data=payload)
+
+        if response.status_code == 200:
+            return response.json()['id']
+        else:
+            return 0
